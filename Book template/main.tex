@@ -1,0 +1,56 @@
+\documentclass[12pt,a4paper]{book} 
+\input{Configs/Configs}
+
+
+\begin{document}
+\renewcommand{\contentsname}{\vspace{-1.5cm}\centering Contenido \vspace{-2cm} }
+
+
+\begin{titlepage}
+\vspace*{2cm}
+
+\noindent
+\vspace*{0.5cm}
+\titlefont{Title page}
+
+\vspace{1.5cm}
+\epigraph{<<``Epic Phrase''>>}%
+{ \textsc{Author}}
+\null\vfill
+\vspace*{1cm}
+\noindent
+\hfill
+\begin{minipage}{0.7\linewidth}
+    \begin{flushright}
+        \printauthor %CHANGE THE AUTHORS IN FORMAT.TEX%
+    \end{flushright}
+\end{minipage}
+%
+\begin{minipage}{0.02\linewidth}
+    \rule{1pt}{70pt}
+\end{minipage}
+\titlepagedecoration
+\end{titlepage}
+
+
+\tableofcontents
+\cleardoublepage
+
+
+\chapter{Examples 1}
+\input{Chapters/1}
+\chapter{Examples 22222}
+\input{Chapters/2}
+
+
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{references}
+\nocite{*}
+
+
+
+
+
+\end{document}

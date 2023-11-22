@@ -1,0 +1,170 @@
+\documentclass[12pt]{article}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{euler}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{bbm}
+
+\usepackage{geometry}
+\setlength{\parindent}{0pt}
+
+\input{boxes}
+\usepackage{multicol}
+\usepackage{blindtext}
+\usepackage{lipsum}
+ \geometry{
+ a4paper,
+ total={170mm,260mm},
+ left=20mm,
+ top=15mm,
+ }
+ 
+\title{\vspace{-2cm}\par\noindent\rule{16cm}{1pt}\large
+\\\bfseries Título de lo que sea que se vaya a hacer en el trabajo
+\vspace{-0.34cm}\par\noindent\hspace{0.15cm}\rule{16cm}{1pt}
+\vspace{-0.6cm}
+}
+\author{\small \bfseries Autor 1$.^1$\quad \quad \quad \quad \quad \quad \quad \quad\quad\small Autor 2$.^{2}$\\ \small \texttt{correo1@....} \quad \quad \quad \quad  \quad \quad \quad \quad \quad \texttt{correo2@...}
+}
+
+\usepackage{titling}
+\predate{\hspace{6.24cm}\small}
+\postdate{}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+\textcolor{red}{La idea de esto es una plantilla tipo paper que sea más soft a lo usual, es sobria pero no en exceso.}\lipsum[1]
+\end{abstract}
+
+
+
+\section{Preliminares}
+
+\subsection{Introducción}
+\lipsum[2]
+\begin{definition}[La función $\zeta$]
+Sea $s \in \mathbb{C}$ tal que $\Re(s)>1$, se define la función $\zeta$ como sigue:
+
+$$\zeta(s)=\sum_{n=1}^{\infty}\dfrac{1}{n^s}$$
+\end{definition}
+
+\begin{note}
+   \lipsum[3]
+\end{note}
+
+\lipsum[4]
+
+\subsection{El producto de Euler}
+
+\lipsum[3]
+
+\begin{theorem}
+    Sea $s\in \mathbb{C}$ tal que $\Re(s)>1$, entonces:
+
+    $$\zeta(s)=\sum_{n=1}^{\infty}\dfrac{1}{n^s}=\prod_p \dfrac{1}{1-p^{-s}}$$
+
+    Donde el producto recorre todos los números primos.
+\end{theorem}
+
+
+\begin{proof}
+
+\textcolor{red}{Dejaré esto acá solo para que se vea un ejemplo de la fuente usada en esta plantilla}\\
+
+    Primero note que:
+
+    $$(1-2^{-s})\zeta(s)=1+\dfrac{1}{3^s}+\dfrac{1}{5^s}+\dfrac{1}{7^s}+\dfrac{1}{9^s}+\cdots$$
+
+    Recordemos que todo entero mayor que 1 es primo o producto de primos, de esto se sigue que...
+
+    $$\zeta(s)\left(1-2^{-s}\right)(1-3^{-s})(1-5^{-s})\cdots(1-p_n^{-s})(1-p_{n+1}^{-s})\cdots=1$$
+
+    Es decir...
+
+    $$\zeta(s)=\prod_p (1-p^{-s})^{-1}$$
+\end{proof}
+
+\begin{eg}
+    \lipsum[1]
+\end{eg}
+
+
+\section{Algunas propiedades elementales en la distribución de los números primos.}
+
+\subsection{La integral de Riemann-Stieltjes}
+
+Como dijimos antes, probaremos el TNP usando una equivalencia que demostraremos en esta sección, primero vamos a definir usando como referencia el libro de Apostol \cite{Apostol:105425} la integral de Riemann Stieltjes
+
+\begin{definition}
+    \begin{itemize}\item[i)] Sean $P=\{x_0,x_1,...,x_n\}\in\mathcal{P}[a,b]$ (las particiones del intervalo $[a,b]$) y   $t_{k}\in [x_{k-1},x_k]$ cualesquiera. 
+    
+    Una suma de la forma $$S(P,f,\alpha)=\sum_{k=1}^{n}f(t_k)\Delta \alpha_k$$ se denomina \textbf{suma de Riemann-Stieltjes} de $f$ con respecto a $\alpha$ en $[a,b]$.
+    
+    \item[ii)] Decimos que $f$ es \textbf{Riemann-Integrable} con respecto a $\alpha$ en $[a,b]$, y escribimos ``$f\in \mathcal{R}(\alpha)$ en $[a,b]$'', si existe $A\in \mathbb R$ que satisface que:\\ 
+    para todo $\epsilon>0$ existe $P_{\epsilon}\in \mathcal{P}[a,b]$ tal que si para toda $P\supset P_{\epsilon}$ y para cualquier elección de puntos $t_{k}\in [x_{k-1},x_k]$, entonces $$\mid S(P,f,\alpha) - A\mid <\epsilon.$$
+    \end{itemize}
+\end{definition}
+
+
+\begin{prop}
+    \lipsum[3]
+\end{prop}
+
+\textcolor{red}{Ahora una cajita toda cacorra para lemas\\
+}
+
+\begin{lemma}
+    \lipsum[2]
+\end{lemma}
+
+\begin{tikznt}
+
+Esta cajita es pa poner cosas en tikz y que se vea basado
+
+\begin{center}
+    \begin{tikzpicture}[scale=1.2]
+\def\a{1.7}
+\def\b{5.7}
+\def\c{3.7}
+\def\L{0.5} % width of interval
+
+\pgfmathsetmacro{\Va}{2*sin(\a r+1)+4} \pgfmathresult
+\pgfmathsetmacro{\Vb}{2*sin(\b r+1)+4} \pgfmathresult
+\pgfmathsetmacro{\Vc}{2*sin(\c r+1)+4} \pgfmathresult
+
+\draw[->,thick] (-0.5,0) -- (7,0) coordinate (x axis) node[below] {$x$};
+\draw[->,thick] (0,-0.5) -- (0,7) coordinate (y axis) node[left] {$y$};
+\foreach \f in {1.7,2.2,...,6.2} {\pgfmathparse{2*sin(\f r+1)+4} \pgfmathresult
+\draw[fill=blue!20] (\f-\L/2,\pgfmathresult |- x axis) -- (\f-\L/2,\pgfmathresult) -- (\f+\L/2,\pgfmathresult) -- (\f+\L/2,\pgfmathresult |- x axis) -- cycle;}
+\node at (\a-\L/2,-5pt) {\footnotesize{$a=x_0$}};
+\node at (\b+\L/2+\L,-5pt) {\footnotesize{$b=x_n$}};
+\draw[blue] (\c-\L/2,0) -- (\c-\L/2,\Vc) -- (\c+\L/2,\Vc) -- (\c+\L/2,0);
+\draw[dashed] (\c,0) node[below] {\footnotesize{$\xi_i$}} -- (\c,\Vc) -- (0,\Vc) node[left] {$f(\xi_i)$};
+\node at (\a+5*\L/2,-5pt) {\footnotesize{$x_{i-1}$}};
+\node at (\a+7*\L/2,-5pt) {\footnotesize{$x_i$}};
+\node at (\a+5*\L,-5pt) {\footnotesize{$x_{i+1}$}};
+\draw[blue,thick,smooth,samples=100,domain=1.45:6.2] plot(\x,{2*sin(\x r+1)+4});
+\filldraw[black] (\c,\Vc) circle (.03cm);
+\end{tikzpicture}
+\end{center}
+
+\end{tikznt}
+
+\textcolor{red}{Y YA, SI LES GUSTÓ PUES DEJEN UNA HPTA ESTRELLA MALPARIDOS, ME ESFORCÉ}
+
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{references}
+\nocite{*}
+
+
+
+
+\end{document}
+
+

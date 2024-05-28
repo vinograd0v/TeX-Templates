@@ -1,21 +1,25 @@
 \usepackage{epigraph}
 \usepackage{fancyhdr}
-
+\usepackage{fontspec}
+\usepackage{emptypage}
+\setlength{\parindent}{0pt}
+\newcommand*{\blankpage}{
+{\newpage \vspace*{5cm}\thispagestyle{empty}\centering \bfseries  \textit{This page is intentionally left blank.} \par}
+\vspace{\fill}}
+\let\uwu=\cleardoublepage
 
 %titlepage
 \renewcommand\epigraphflush{flushright}
 \renewcommand\epigraphsize{\normalsize}
 \setlength\epigraphwidth{0.7\textwidth}
 
-\definecolor{titlepagecolor}{cmyk}{1,1,1,1}
-
-\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{}{0.75in}
+\DeclareFixedFont{\titlefont}{T1}{ppl}{bx}{n}{0.75in}
 
 \makeatletter                       
 \def\printauthor{%                  
     {\large \@author}}              
 \makeatother
-\author{    Mateo Andrés Manosalva\\
+\author{Mateo Andrés Manosalva\\
     \texttt{mmanosalva@unal.edu.co}
     }
 
@@ -27,7 +31,7 @@
 \coordinate (aux3) at ([xshift=-4.5cm]current page.north east);
 \coordinate (aux4) at ([yshift=-150pt]current page.north east);
 
-\begin{scope}[titlepagecolor!40,line width=12pt,rounded corners=12pt]
+\begin{scope}[black!40,line width=12pt,rounded corners=12pt]
 \draw
   (aux1) -- coordinate (a)
   ++(225:5) --
@@ -36,16 +40,16 @@
   (aux3) --
   (a) --
   (aux1);
-\draw[opacity=0.6,titlepagecolor,shorten <= -10pt]
+\draw[opacity=0.6,black,shorten <= -10pt]
   (b) --
   ++(225:2.2) --
   ++(-45:2.2);
 \end{scope}
-\draw[titlepagecolor,line width=8pt,rounded corners=8pt,shorten <= -10pt]
+\draw[black,line width=8pt,rounded corners=8pt,shorten <= -10pt]
   (aux4) --
   ++(225:0.8) --
   ++(-45:0.8);
-\begin{scope}[titlepagecolor!70,line width=6pt,rounded corners=8pt]
+\begin{scope}[black!70,line width=6pt,rounded corners=8pt]
 \draw[shorten <= -10pt]
   (aux2) --
   ++(225:3) coordinate[pos=0.45] (c) --
@@ -77,19 +81,19 @@
 
 
 \titlecontents{chapter}
-  [-0em]{\Large\bfseries\vspace*{3\baselineskip}}
-  {\hspace{-2cm}\parbox{6.5em}{%
+  [0em]{\Large\bfseries\vspace*{2\baselineskip}}
+  {\hspace{-1.2cm}\parbox{6.5em}{%
     \hfill\Huge\sffamily\bfseries\color{black}\thecontentspage}%
    \vspace*{-1.9\baselineskip}\leftbar\sffamily\bfseries}
   {}{\endleftbar}
 \titlecontents{section}
   [11.4em]
   {\sffamily\contentslabel{3em}}{}{} 
-  {\hfill \nobreak\itshape\color{black}\contentspage}
+  {\phantom{    }\dotfill \nobreak\itshape\color{black}\contentspage}
 \titlecontents{subsection}
   [13em]
   {\sffamily\contentslabel{3em}}{}{}  
-  {\hfill \nobreak\itshape\color{black}\contentspage}
+  {\phantom{    }\dotfill \nobreak\itshape\color{black}\contentspage}
 
 
 \newcommand{\mychapter}[2]{
@@ -103,10 +107,10 @@
 \usepackage{titlesec}
 
 \titleformat{\chapter}
-{\normalfont\fontsize{40}{50}\bfseries}{}{0pt}{}
+{\vspace{-1.2cm}\normalfont\fontsize{35}{25}\bfseries}{}{0pt}{}
 
 \titleformat{\section}
-{\normalfont\Huge\bfseries}{~\thesection}{1em}{}
+{\normalfont\Large\bfseries}{~\thesection}{1em}{}
 
 \usepackage{fancyhdr}
 

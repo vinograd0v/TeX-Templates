@@ -50,29 +50,3 @@
 \declaretheorem[style=thmtikz, numbered=no, name=.]{tikznt}
 
 \newcommand{\bb}[1]{\mathbb{#1}}
-
-\usepackage[most]{tcolorbox}
-\tcbuselibrary{most}
-
-\tcbset {
-  base/.style={
-    arc=7mm, 
-    bottomtitle=0.5mm,
-    boxrule=0mm,
-    colbacktitle=black!90!white, 
-    coltitle=white, 
-    fonttitle=\bfseries, 
-    left=2.5mm,
-    leftrule=1mm,
-    right=3.5mm,
-    title={#1},
-    toptitle=0.75mm, 
-  }
-}
-
-
-\newtcolorbox{subbox}[1]{
-  colframe=black!93!white,
-  base={#1}
-}
-

@@ -1,0 +1,90 @@
+\thispagestyle{empty}
+\vspace{-0.7cm}
+
+\cleanchapterquote{Aquí voy a poner frases épicas, una cosa que la gente lo vea y diga: pura coyeria.}{B. Riemann}{}
+
+\section{Preliminares}
+
+\lipsum[3]
+
+\subsection{Introducción}
+La función $\zeta$ de Riemann comienza su desarrollo histórico con Euler, recordemos que en 1735, Euler resuelve el problema de Basilea planteado por Pietro Mengoli y que los Bernoulli intentaron resolver sin éxito...
+
+$$\sum_{n=1}^{\infty}\dfrac{1}{n^2}=\dfrac{\pi^2}{6}$$
+
+6 años después Euler da una demostración que para la época podemos considerar formal, con dicho problema resuelto, se pregunta cómo generalizarlo y define lo que conocemos como la función $\zeta$.
+
+\begin{definition}[La función $\zeta$]
+Sea $s \in \mathbb{C}$ tal que $\Re(s)>1$, se define la función $\zeta$ como sigue:
+
+$$\zeta(s)=\sum_{n=1}^{\infty}\dfrac{1}{n^s}$$
+\end{definition}
+
+\begin{note}
+  \lipsum[1]
+\end{note}
+
+
+\subsection{El producto de Euler}
+\lipsum[2]
+\begin{theorem}
+    Sea $s\in \mathbb{C}$ tal que $\Re(s)>1$, entonces:
+
+    $$\zeta(s)=\sum_{n=1}^{\infty}\dfrac{1}{n^s}=\prod_p \dfrac{1}{1-p^{-s}}$$
+
+    Donde el producto recorre todos los números primos.
+\end{theorem}
+
+Demos entonces la prueba de esto tal como la dió Euler\\
+
+\begin{proof}
+    Primero note que:
+
+    $$(1-2^{-s})\zeta(s)=1+\dfrac{1}{3^s}+\dfrac{1}{5^s}+\dfrac{1}{7^s}+\dfrac{1}{9^s}+\cdots$$
+
+    Recordemos que todo entero mayor que 1 es primo o producto de primos, de esto se sigue que...
+
+    $$\zeta(s)\left(1-2^{-s}\right)(1-3^{-s})(1-5^{-s})\cdots(1-p_n^{-s})(1-p_{n+1}^{-s})\cdots=1$$
+
+    Es decir...
+
+    $$\zeta(s)=\prod_p (1-p^{-s})^{-1}$$
+\end{proof}
+
+\subsection{Algunas funciones aritmética}
+
+\begin{definition}
+    Sea $f$ una función, diremos que $f$ es una función aritmética si $f: \mathbb{N}\mapsto \mathbb{F}$, con $\mathbb{F}=\mathbb{R}$ o $\mathbb{F}=\mathbb{C}$, es decir, las funciones aritméticas son sucesiones de números reales o complejos.
+\end{definition}
+
+
+\begin{theorem}[TFA versión logarítmica]
+    Sea $n\in \mathbb{N}$ tal que $n>1$:
+
+    $$\log(n)=k_1\log(p_1)+k_2\log(p_2)+k_3\log(p_3)+\ldots+k_m\log(p_m)$$
+\end{theorem}
+
+Lo que sigue es un corolario
+
+\begin{corollary}
+    Sea $n\in \mathbb{N}$ y $n>1$ tenemos la siguiente propiedad:
+
+    $$\log(n)=\sum_{j\mid n}\Lambda(j)$$
+\end{corollary}
+
+\lipsum[4]
+
+\begin{eg}
+    \lipsum[3]
+\end{eg}
+
+\lipsum[9]
+\begin{lemma}
+    Caja para  poner lemas \lipsum[4]
+\end{lemma}
+
+\lipsum[1-9]
+
+\begin{prop}
+    Proposición \lipsum[6]
+\end{prop}

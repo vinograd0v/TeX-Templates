@@ -1,10 +1,9 @@
+%ESTA JODA TIENE COPYRIGHT, NO ROBAR DE FORMA DESCARADA PLS att: mmanosalva%
 \documentclass[12pt,a4paper]{book} 
 \input{Configs/Configs}
 
-
 \begin{document}
-\renewcommand{\contentsname}{\vspace{-1.5cm}\centering Contenido \vspace{-2cm} }
-
+\renewcommand{\contentsname}{\vspace{0cm} Contenido \vspace{-2cm}}
 
 \begin{titlepage}
 \vspace*{2cm}
@@ -32,24 +31,21 @@
 \titlepagedecoration
 \end{titlepage}
 
-
+\let\cleardoublepage=\clearpage
 \tableofcontents
-\cleardoublepage
+\blankpage
 
-
-\chapter{Examples 1}
+\chapter{Examples I}
 \input{Chapters/1}
-\chapter{Examples 22222}
+\newpage\thispagestyle{empty}\blankpage
+\chapter{Examples II}
 \input{Chapters/2}
 
 
-
-\newpage
+\blankpage
 \bibliographystyle{unsrt}
 \bibliography{references}
 \nocite{*}
-
-
 
 
 

@@ -2,9 +2,12 @@
 \documentclass[12pt,a4paper]{book} 
 \input{Configs/Configs}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                   TITLE PAGE                          %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 \renewcommand{\contentsname}{\vspace{0cm} Contenido \vspace{-2cm}}
-
 \begin{titlepage}
 \vspace*{2cm}
 
@@ -31,9 +34,22 @@
 \titlepagedecoration
 \end{titlepage}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                      CONTENIDO                        %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\blankpages
 \let\cleardoublepage=\clearpage
 \tableofcontents
-\blankpage
+\thispagestyle{empty}
+\blankpages
+\geomdoc % aplica geometría nueva al documento.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%          CUERPO DEL DOCUMENTO, CAPITULOS              %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \chapter{Examples I}
 \input{Chapters/1}
@@ -42,7 +58,7 @@
 \input{Chapters/2}
 
 
-\blankpage
+\blankpages
 \bibliographystyle{unsrt}
 \bibliography{references}
 \nocite{*}

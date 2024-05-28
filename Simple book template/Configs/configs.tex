@@ -1,5 +1,8 @@
-%!TEX root = main.tex
-\usepackage[T1]{fontenc}
+%!TEX root = ../main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                  CONFIG FILE                          %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \usepackage[spanish]{babel}
 \usepackage{graphicx}
 \usepackage{float}
@@ -7,11 +10,23 @@
 \usepackage{enumitem}
 \usepackage{subcaption}
 \usepackage{multicol}
-\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{xcolor}
 \usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
 \usepackage{mathrsfs}
-\usepackage{euler}
-\usepackage{cancel}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                       FONTS                           %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,euler}
+
+\let\oldstylenums\oldstyle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%          ALGUNOS PAQUETES Y COSAS EXTRA               %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{bbm}
+\usepackage{slashed}
 \usepackage{enumitem}
 \usepackage[breaklinks = true]{hyperref}
 \usepackage{lipsum}
@@ -25,13 +40,33 @@
 
 \usepackage{tikz}
 
-\usepackage{geometry}
- \geometry{
- a4paper,
- total={170mm,245mm},
- left=20mm,
- top=20mm,
- }
+\usepackage[                    
+    paper=a4paper,          %   - use A4 paper size 
+    includefoot,            %   - include footer space
+    includemp,              %   - include side note 
+    bindingoffset=0.5cm,    %   - binding correction
+    top=2.25cm,             %   - total body: top margin
+    left=2.5cm,         %   - total body: left 
+    right=0.8cm,            %   - total body: right 
+    bottom=1.5cm,           %   - total body: bottom 
+    marginparwidth=1.75cm,  %   - width for side note
+    marginparsep=10pt,      %   - space between notes 
+    footskip=2cm,           %   - footer skip size
+]{geometry}
+
+\newcommand*{\geomdoc}{\newgeometry{twoside,top=3cm,left=3.5cm,right=2.5cm,bottom=3cm}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                     AYUDA TENGO TOC                   %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{silence}
+\WarningFilter{latexfont}{Font shape}
+\WarningFilter{latexfont}{Some font shapes were not available, defaults substituted.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%    IMPORTAR ARCHIVOS DE CONFIGURACIÓN ADICIONALES     %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \input{Configs/Boxes}
 \input{Configs/Formats}

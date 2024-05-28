@@ -1,46 +1,47 @@
-% Tcolorboxes
+%!TEX root = ../main.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%            SOME BOXES OF THE TEMPLATE                 %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \makeatother
 \usepackage{thmtools}
 \usepackage[framemethod=TikZ]{mdframed}
-\mdfsetup{skipabove=1em,skipbelow=1em}
+\mdfsetup{skipabove=1em,skipbelow=1em, innertopmargin=5pt, innerbottommargin=5pt}
 
 \theoremstyle{definition}
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{black!70!black}, bodyfont=\normalfont,
-    mdframed={
-        linewidth=2pt,
-        rightline=true, topline=false, bottomline=false,
-        linecolor=black, backgroundcolor=black!3!white,
-    }
-]{thmbox}
 
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{black!3}, bodyfont=\normalfont,
-    mdframed={
-        linewidth=2pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=black, backgroundcolor=black!3!white,align=center,
-    }
-]{thmtikz}
+%\declaretheoremstyle[
+%    headfont=\bfseries\color{black!70!black}, bodyfont=\normalfont,
+%    mdframed={
+%        linewidth=1.5pt,
+%        rightline=true, topline=false, bottomline=false,
+%        linecolor=black, backgroundcolor=black!2!white,
+%    }
+%]{thmbox}
+
+\declaretheoremstyle[headfont=\bfseries, bodyfont=\normalfont, mdframed={ nobreak }]{thmbox}
+
+%\declaretheoremstyle[
+%    headfont=\bfseries\color{black!70!black}, bodyfont=\normalfont,
+%    numbered=no,
+%    mdframed={
+%        linewidth=0pt,
+%        rightline=false, topline=false, bottomline=false,
+%        linecolor=black, backgroundcolor=black!2!white,
+%    },
+%    qed=\qedsymbol
+%]{proofboxes}
+
+\declaretheoremstyle[headfont=\bfseries, bodyfont=\normalfont, numbered=no,qed=\qedsymbol ]{thmproofbox}
 
 
-\declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{black!70!black}, bodyfont=\normalfont,
-    numbered=no,
-    mdframed={
-        linewidth=0pt,
-        rightline=false, topline=false, bottomline=false,
-        linecolor=black, backgroundcolor=black!2!white,
-    },
-    qed=\qedsymbol
-]{thmproofbox}
-
-\declaretheorem[numberwithin=chapter,style=thmbox, name=Definición]{definition}
-\declaretheorem[sibling=definition,style=thmbox, numbered=no, name=Ejemplo]{eg}
-\declaretheorem[sibling=definition,style=thmbox, name=Proposición]{prop}
-\declaretheorem[sibling=definition,style=thmbox, name=Teorema, numbered=yes]{theorem}
-\declaretheorem[sibling=definition,style=thmbox, name=Lema]{lemma}
-\declaretheorem[sibling=definition,style=thmbox, name=Corolario]{corollary}
+\declaretheorem[numberwithin=chapter,style=thmbox, name=Teorema]{theorem}
+\declaretheorem[sibling=theorem,style=thmbox, numbered=no, name=Ejemplo]{eg}
+\declaretheorem[sibling=theorem,style=thmbox, name=Proposición]{prop}
+\declaretheorem[sibling=theorem,style=thmbox, name=Definición, numbered=no]{definition}
+\declaretheorem[sibling=theorem,style=thmbox, name=Lema]{lemma}
+\declaretheorem[sibling=theorem,style=thmbox, name=Corolario]{corollary}
 
 \declaretheorem[style=thmproofbox, name=Demostración]{replacementproof}
 \renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
@@ -50,3 +51,35 @@
 \declaretheorem[style=thmtikz, numbered=no, name=.]{tikznt}
 
 \newcommand{\bb}[1]{\mathbb{#1}}
+
+\definecolor{ctcolorgraylight}{gray}{.8}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                 CLEANCHAPTERQUOTE                     %%   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\hugequote}{%
+    {\fontsize{75}{75}\selectfont%
+    \hspace*{-.560em}\color{ctcolorgraylight}%
+    \textit{\glqq}%
+    \vskip -.26em}%
+}
+
+\newcommand{\cleanchapterquote}[3]{%
+    \begin{minipage}{.865\textwidth}%
+        \begin{flushright}
+            \begin{minipage}{.65\textwidth}%
+                \begin{flushleft}
+                    {\hugequote}\textit{#1}
+                \end{flushleft}
+                \begin{flushright}
+                    --- \textbf{#2} \\
+                    #3
+                \end{flushright}
+            \end{minipage}%
+        \end{flushright}
+    \end{minipage}%
+    \bigskip
+}

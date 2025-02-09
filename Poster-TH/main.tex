@@ -1,0 +1,253 @@
+\documentclass[final]{beamer}
+\usepackage[orientation=portrait,size=a0,scale=1.0]{beamerposter}
+\usetheme{gemini}
+\usecolortheme{nott}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage{newtxtext,fourier} % Fuentes modernas para texto y matemáticas
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepackage{amsmath, amsfonts, amsthm, amssymb}
+\newcommand\T{\ensuremath{\mathbb{T}}}
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newlength{\sepwidth}
+\newlength{\colwidth}
+\setlength{\sepwidth}{0.025\paperwidth}
+\setlength{\colwidth}{0.45\paperwidth}
+\newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
+\newtheorem{teor}{Teorema}
+\newcommand{\defi}[1]{\textbf{\emph{#1}}} 
+\title{Sobre el teorema de los números primos en progresiones aritmética}
+
+\author{Mateo Andrés Manosalva Amaris\\Trabajo dirigido por John Jaime Rodriguez\\Departamento de Matemáticas, Universidad Nacional de Colombia}
+\logoleft{
+  \begin{tabular}{@{}c@{}}
+    \hspace{3.5cm}\includegraphics[scale=0.22]{logo.jpg} \\
+  \end{tabular}
+}
+\begin{document}
+
+\begin{frame}[t,fragile]
+\begin{columns}[t]
+\separatorcolumn
+
+\begin{column}{\colwidth}
+
+  \begin{block}{Resumen}
+
+El teorema de los números primos nos dice que en el límite, el cociente $\dfrac{\pi(x)\log x}{x}$ tiende a 1, es decir, que $\pi(x)\thicksim \dfrac{x}{\log x}$ donde $\pi(x)$ es la función contadora de primos. En progresiones aritméticas $a+kq$ con $(a,q)=1$, tenemos que $\pi(a,q,x)$; la función contadora restringida a la progresión, tiene el comportamiento asintótico $\pi(a,q,x)\thicksim \dfrac{x}{\phi(q)\log x}$, es decir, los primos se distribuyen uniformemente en las clases de residuos módulo $q$. En este trabajo se presentará la prueba de este resultado y las ideas subyacentes. Para esto, haremos uso de la teoría Tauberiana, lo que nos permitirá presentar una prueba detallada y corta, que se seguirá estudiando la no nulidad de $L(\chi,s)$ y algunas propiedades de los caracteres y series de Dirichlet.
+  \end{block}
+
+\begin{block}{El Teorema de Dirichlet}
+
+Desde los tiempos de Euclides se sabe que existen infinitos números primos, sin embargo no se conocía mucho mucho sobre su distribución,
+\begin{itemize}
+    \item  ¿Existen infinitos números primos de la forma $a+kn$?
+    \item ¿Cómo se distribuyen los números primos en cada  una de las clases de equivalencia módulo $n$?.
+\end{itemize}
+El argumento de Euclides provenía de ver que si existen finitos números primos, digamos $p_1,\ldots,p_n$, entonces $p_1p_2\cdots p_n+1$ es un primo adicional.\\
+\vspace*{0.3cm}
+\defi{Teorema (Dirichlet)}
+Dados $a$ y $d$ primos relativos, existen infinitos primos de la forma
+    $$a, a+d,a+2d,a+3d,...$$
+\defi{Teorema (Euler)} La suma $\displaystyle  \sum_{p}\dfrac{1}{p}$ es divergente.\\
+
+La idea de Euler consiste en explotar la identidad 
+$$\prod_p \left(1-\dfrac{1}{p^s}\right)^{-1}=\sum_{n=1}^{\infty}\dfrac{1}{n^s},\quad  \Re(s)>1$$
+de donde obtiene que 
+    $$
+\log (\zeta(s))=\sum_p^{\infty}\left(\displaystyle\sum_{k=1}^{\infty} \dfrac{1}{k(p)^{k s}}\right)=\sum_p
+\dfrac{1}{p^s}+\sum_{p}\left(\sum_{k=2}^{\infty}\dfrac{1}{kp^{ks}}\right), \quad \Re(s)>1$$
+\end{block}
+    
+\begin{alertblock}{La idea de Dirichlet}
+
+Sea $f(n)$ la función característica de la progresión aritmética, es decir
+$$
+f(n)=\left\{\begin{array}{lll}
+1, & n \equiv a & \pmod{m} \\
+0, & n \not \equiv a & \pmod{m}
+\end{array}\right.
+$$
+en el caso de que $f(n)$ sea completamente multiplicativa tendríamos un producto de Euler
+$$
+\sum_{n=1}^{\infty} \frac{f(n)}{n^s}=\prod_p\left(1-\frac{f(p)}{p^s}\right)^{-1}, \quad \Re(s)>1
+$$
+y así por argumentos análogos a los de Euler se tendría que
+$$\log \left(\sum_{n=1}^{\infty} \frac{f(n)}{n^s}\right)=\sum_{p \equiv a\bmod{m}} \frac{1}{p^s}+O(1)$$
+Lamentablemente, $f(n)$ generalmente no es multiplicativa.\\
+  \end{alertblock}
+
+\begin{block}{Caracteres}
+\defi{Definición: }Sea $G$ un grupo, $\chi$ es un carácter de $G$ si $\chi: G\to \C^{\times}$ y satisface que para todo $a,b\in G$, $\chi(ab)=\chi(a)\chi(b)$.
+
+\defi{Teorema (Ortogonalidad) } Sea $G$ un grupo abeliano finito. Entonces
+\begin{itemize}
+    \item[(i)] Si $\chi$ y $\psi$ son caracteres de $G$
+$$
+\sum_{g \in G} \psi(g) \overline{\chi}(g)= \begin{cases}|G|, & \text { si } \psi=\chi ; \\ 0, & \text { e.o.c. }\end{cases}
+$$
+\item[(ii)] Si $g$ y $h$ son elementos de $G$
+$$
+\sum_{\chi \in \widehat{G}} \chi(g) \overline{\chi}(h)= \begin{cases}|G|, & \text { si } g=h \\ 0, & \text { e.o.c. }\end{cases}
+$$
+\end{itemize}
+El conjunto de caracteres forma un grupo con la multiplicación puntual, lo denotamos $\widehat{G}$\\
+\vspace*{0.2cm}
+\defi{Definición: }Sea $f: G \rightarrow \mathbb{C}$, definimos su transformada de Fourier como la función $\widehat{f}: \widehat{G} \rightarrow \mathbb{C}$ dada por
+$$
+\widehat{f}(\chi)=\sum_{g\in G} f(g) \overline{\chi}(g).
+$$
+\begin{exampleblock}{}
+    \defi{Teorema (Representación de Fourier)} Dada $f: G \rightarrow \mathbb{C}$, tenemos la representación en ``serie'' de Fourier
+$$
+f(g)=\frac{1}{|G|}\sum_{\chi \in \widehat{G}}\widehat{f}(\chi) \chi(g).
+$$
+\end{exampleblock}
+Diremos que un carácter de Dirichlet es una extensión periódica de un carácter de $(\mathbb{Z}/m\mathbb{Z})^{\times}$ a $\mathbb{N}$
+
+Obtenemos la expresión
+    \begin{align*}
+    \sum_{n=1}^{\infty}\frac{f(n)}{n^s}=\frac{1}{\varphi(m)}\sum_{\chi}\chi(a^{-1})\sum_{n=1}^{\infty}\frac{\chi(n)}{n^s}
+,\end{align*}
+
+y la prueba se sigue de estudiar la expresión
+
+\begin{align*}
+    \frac{1}{\varphi(m)} \sum_{\chi} \chi(a^{-1}) \log L(s, \chi)
+&=\sum_{\substack{p \equiv a\bmod{m}}} \frac{1}{p^s} + O(1)
+.\end{align*}
+\begin{exampleblock}
+    {}\defi{Teorema (De La Vallée Poussin) }$$\pi(a,m,x)\thicksim \dfrac{x}{\varphi(m)\log x}$$
+\end{exampleblock}
+Primero vamos a estudiar que ocurre con primos d ela forma $2k+1$. La expreción toma la forma
+$$\pi(x)\thicksim \dfrac{x}{\log x}.$$
+\end{block}
+\end{column}
+
+\separatorcolumn
+
+\begin{column}{\colwidth}
+\phantom{xd}\\\vspace*{0.6cm}
+El camino para probar este teorema es ver que $\displaystyle\psi(x)=\sum_{n\leq x} \Lambda(n)\thicksim x,$ donde $\Lambda(n)$ es la función de Von Mangolth, $\displaystyle\Lambda(n)=\begin{cases}
+    \log(p) &\text{si } n=p^k, k\geq 1\\
+    0 &\text{e.o.c}
+\end{cases}$
+\begin{block}{Teoremas tauberianos}
+\defi{Proposición: }Sea $\displaystyle \sum_{n=0}^{\infty} a_n x^n$, $x\in \R$ una serie de potencias centrada en $0$ y con radio  de convergencia $1$, si
+$$\sum_{n=0}^{\infty} a_n=A,\text{ entonces } \lim_{x \to 1^-}\sum_{n=0}^{\infty} a_n x^n=A.$$
+Los teoremas tauberianos son recíprocos condicionales del teorema de Abel.\\
+\defi{Proposición (Tauber, 1897)} Sea $f(x)=\displaystyle\sum_{n=0}^{\infty} a_n x^n$ una serie de potencias que converge absolutamente para $|x|<1$.
+Si $\lim_{x \rightarrow 1^{-}} f(x)=A$ y se cumple la condición $a_n=o\left(\dfrac{1}{n}\right)$, entonces $f(1)=A$.
+\end{block}
+\begin{exampleblock}{Teorema de Wiener-Ikehara}
+Sean $a_n \geq 0$ y $F(s)=\displaystyle\sum_{n=1}^{\infty} \frac{a_n}{n^s}$ una serie absolutamente convergente. Supongamos que se cumplen las siguientes condiciones:
+\begin{itemize}
+\item La función $F(s)$ se extiende a una función analítica en la región $\Re(s) \geq 1$ con un único polo simple en $s=1$, cuyo residuo es $1$.\\
+\item $A(x)=\displaystyle \sum_{n \leq x} a_n=O(x)$.
+\end{itemize}
+Entonces, se tiene que $A(x)=x+o(x) \text { cuando } x \rightarrow \infty \text {. }
+$
+\end{exampleblock}
+Aplicando el teorema anterior a la serie de Dirichlet $\displaystyle-\dfrac{\zeta^{\prime}(s)}{\zeta(s)}=\sum_{n=1}^{\infty}\dfrac{\Lambda(n)}{n^s}$, se obtiene el TNP, como corolario de
+$$\zeta(1+it)\neq 0, \text{ para todo } t\neq 0.$$
+\defi{Teorema (Korevaar y Zagier)} Para $t \geq 0$, sea $f(t)$ una función acotada y localmente integrable y sea $$g(s):=\displaystyle\int_0^{\infty} f(t) e^{-s t} d t,$$
+para $\Re(s)>0$. Si $g(s)$ tiene continuación analítica a $\Re(s) \geq 0$, entonces $\displaystyle\int_0^{\infty} f(t) d t$ existe y es igual a $g(0)$.
+La prueba consiste en estimar la integral
+$$I_{C}=\frac{1}{2\pi i}\int_{C}\left(g(s)-g_T(s)\right)e^{sT}\left(1+\frac{s^2}{R^2}\right)\frac{1}{s}ds=g(0)-g_T(0),$$
+donde $C$ es el siguiente contorno
+\begin{center}
+    \tikzset{every picture/.style={line width=1.5pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.86pt,y=0.86pt,yscale=-2,xscale=2]
+%uncomment if require: \path (0,357); %set diagram left start at 0, and has height of 357
+
+%Curve Lines [id:da6356687025771366] 
+\draw    (275.97,140.51) .. controls (393.49,144.53) and (398.68,314.72) .. (275.97,320.82) ;
+%Straight Lines [id:da7778166164432772] 
+\draw [color={rgb, 255:red, 74; green, 74; blue, 74 }  ,draw opacity=1 ]   (165.97,230.93) -- (385.97,230.41) ;
+%Straight Lines [id:da7053132902182386] 
+\draw [color={rgb, 255:red, 74; green, 74; blue, 74 }  ,draw opacity=1 ]   (276.23,340.67) -- (275.71,120.67) ;
+%Straight Lines [id:da3860117988849814] 
+\draw [color={rgb, 255:red, 74; green, 74; blue, 74 }  ,draw opacity=1 ]   (275.97,140.51) -- (275.97,320.82) ;
+%Curve Lines [id:da8696519251258394] 
+\draw [line width=0.75]  [dash pattern={on 4.5pt off 4.5pt}]  (275.97,320.82) .. controls (161.04,319.39) and (153.49,147.13) .. (275.97,140.51) ;
+%Straight Lines [id:da885594660241974] 
+\draw    (257.81,142.33) -- (257.42,318.61) ;
+\draw [shift={(257.61,234.27)}, rotate = 270.13] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (7.14,-3.43) -- (0,0) -- (7.14,3.43) -- cycle    ;
+%Curve Lines [id:da01957205219237279] 
+\draw    (260.05,142.23) .. controls (265.49,141.06) and (271.33,140.68) .. (275.97,140.51) ;
+%Curve Lines [id:da7685319347743758] 
+\draw    (275.97,320.82) .. controls (271.82,321.03) and (262.09,319.86) .. (255.08,318.61) ;
+%Curve Lines [id:da9382254876031242] 
+\draw    (352.85,183.1) .. controls (360.63,195.56) and (361.15,201.09) .. (363.74,209.91) ;
+\draw [shift={(357.4,191.16)}, rotate = 66.46] [fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.08]  [draw opacity=0] (7.14,-3.43) -- (0,0) -- (7.14,3.43) -- cycle    ;
+%Shape: Ellipse [id:dp016643737096258437] 
+\draw  [color={rgb, 255:red, 255; green, 0; blue, 0 }  ,draw opacity=1 ][fill={rgb, 255:red, 255; green, 0; blue, 0 }  ,fill opacity=1 ] (274.86,230.67) .. controls (274.86,230.05) and (275.36,229.56) .. (275.97,229.56) .. controls (276.58,229.56) and (277.08,230.05) .. (277.08,230.67) .. controls (277.08,231.28) and (276.58,231.78) .. (275.97,231.78) .. controls (275.36,231.78) and (274.86,231.28) .. (274.86,230.67) -- cycle ;
+
+% Text Node
+\draw (125.36,236.93) node [anchor=north west][inner sep=0.75pt]  [font=\normalsize,xscale=2,yscale=2]  {\fontsize{10}{10}\selectfont$(-R,0)$};
+% Text Node
+\draw (282.08,236.93) node [anchor=north west][inner sep=0.75pt]  [font=\tiny,xscale=2,yscale=2] [align=left] {\fontsize{10}{10}\selectfont$( 0,0)$};
+% Text Node
+\draw (195.08,236.93) node [anchor=north west][inner sep=0.75pt]  [font=\tiny,xscale=2,yscale=2] [align=left] {\fontsize{10}{10}\selectfont$(-\delta,0)$};
+% Text Node
+\draw (369,236.93) node [anchor=north west][inner sep=1pt]  [font=\tiny,xscale=2,yscale=2]  {\fontsize{10}{10}\selectfont$(R,0)$};
+% Text Node
+\draw (342.5,154.9) node [anchor=north west][inner sep=0.75pt]  [font=\tiny,xscale=2,yscale=2]  {$C_{+}$};
+% Text Node
+\draw (176.83,153.4) node [anchor=north west][inner sep=0.75pt]  [font=\tiny,xscale=2,yscale=2]  {$C_{-}$};
+\end{tikzpicture}
+\end{center}
+Obtenemos \[
+g(0) = \lim _{T \rightarrow \infty} g_T(0).
+\]
+\defi{Teorema (Korevaar y Zagier) }Sean $a_n\geq 0$ y $A(x)=\displaystyle\sum_{n\leq x} a_n$, si  la integral $\displaystyle\int_1^{\infty}\frac{A(x)-x}{x^2}dx$
+converge, entonces $A(x)\thicksim x$\\
+\vspace*{0.2cm}
+Aplicando lo anterior y sabiendo que 
+\[
+\sum_{n=1}^{\infty}a_nn^{-s} - \frac{s}{s-1} = s \int_1^{\infty} \frac{A(t)-t}{t^{s+1}} d t,
+\]
+se obtiene una prueba del teorema tauberiano.
+
+\vspace*{0.2cm}
+\begin{alertblock}{Distribución de los primos en progresiones aritmética}
+En progresiones aritmética la idea es la misma, el teorema tauberiano se puede extender a una serie de  Dirichlet con coeficientes complejos, aplicamos el teorema a la función
+$$\sum_{n\equiv a \bmod{m}}\dfrac{\Lambda(n)}{n^s}=\dfrac{1}{\varphi(m)}\sum_{\chi}\overline{\chi(a)}\left(-\dfrac{L^{\prime}}{L}(s,\chi)\right)$$
+que tiene residuo $\dfrac{1}{\varphi(m)}$. Esto nos da que $\displaystyle\sum_{\substack{n\leq x\\n\equiv a\bmod{m}}}\Lambda(n)\thicksim \dfrac{x}{\varphi(m)},$
+lo que prueba el TNP en progresiones aritmética.
+\end{alertblock}
+
+La desventaja de los teoremas tauberianos es que no nos permiten controlar el error, puesto que sus estimación son del orden $o-$pequeña.
+
+\begin{exampleblock}{Los casos $\mathbf{4k+1}$ y $\mathbf{4k+3}$}
+    Tenemos que $(\Z/4\Z)^{\times}=\{1,3\}$, tendremos dos carácteres de Dirichlet, el trivial que manda todo a 1, y otro que envía al 1 en 1 y al 3 en -1.
+    $$
+L\left(s, \chi_0\right) =\prod_{p \equiv 1}\left(1-\frac{1}{p^s}\right)^{-1} \prod_{p \equiv 3}\left(1-\frac{1}{p^s}\right)^{-1}=\left(1-\frac{1}{2^s}\right) \zeta(s), \quad L\left(s, \chi_1\right)=\sum_{n=1}^{\infty} \frac{\chi_1(n)}{n^s}=\sum_{n=0}^{\infty}\frac{(-1)^n}{(2 n+1)^s},
+$$
+obtenemos que 
+$$
+\log \left(L\left(s, \chi_0\right)\right)=\sum_{p \equiv 1(4)} \frac{1}{p^s}+\sum_{p \equiv 3(4)} \frac{1}{p^s}+O(1), \quad 
+\log \left(L\left(s, \chi_1\right)\right)=\sum_{p \equiv 1(4)} \frac{1}{p^s}-\sum_{p \equiv 3(4)} \frac{1}{p^s}+O(1)
+$$
+\end{exampleblock}
+
+\begin{block}{Referencias}
+\nocite{*}
+\footnotesize{\bibliographystyle{plain}\bibliography{poster}}
+\end{block}
+\end{column}
+\separatorcolumn
+
+
+
+\end{columns}
+\end{frame}
+
+\end{document}

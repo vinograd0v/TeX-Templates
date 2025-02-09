@@ -1,0 +1,31 @@
+%!TEX root = ../main.tex
+
+\item Si $f: X_1 \rightarrow X_2$ es un homeomorfismo entre espacios Hausdorff localmente compactos, demuestra que $f$ se extiende a un homeomorfismo de sus compactificaciones por un punto.
+
+\begin{proof}
+    Suponga $f:X_1\to X_2$ un homeomorfismo y definamos
+
+    \begin{align*}
+        g : Y_1 &\longrightarrow Y_2 \\
+        x &\longmapsto g(x) = \begin{cases}
+            f(x) &\text{si } x\in X_1\\
+            \tilde{y} &\text{si }x=y,
+        \end{cases}
+    \end{align*}
+
+    con $Y_1, Y_2$ las compactificaciones a un punto, $g$ es un homeomorfismo entre $Y_1$ y $Y_2$. Sea $V$ un abierto, $V\subset Y_2$. Tenemos dos casos, $V$ es abierto de $X_2$ o $V=Y_2-C$ con $C$ compacto en $X_2$, el primer caso es trivial. Para el segundo caso note que 
+
+    \begin{align*}
+        g^{-1}(V)&=g^{-1}(Y_2-C)\\
+        &=Y_1-g^{-1}(C)\\
+        &=Y_1- K_1
+    .\end{align*}
+
+    con $K_1$ compacto en $X_1$. Análogamente 
+
+    $$g(Y_1-C)=Y_2-g(C)=Y_2-K_2$$
+
+    con $K_2$ compacto en $X_2$.
+        
+\end{proof}
+

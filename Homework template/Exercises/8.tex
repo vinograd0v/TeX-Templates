@@ -1,0 +1,12 @@
+%!TEX root = ../main.tex
+
+ \item Demuestra que la compactificación por un punto de $\mathbb{Z}_{+}$ es homeomorfa al subespacio $\{0\} \cup \{1 / n \mid n \in \mathbb{Z}_{+}\}$ de $\mathbb{R}$.
+
+ \begin{proof}
+Veamos que $\mathbb{Z}_{+}$ y $A=\left\{\dfrac{1}{n}: n \in \mathbb{Z}_{+}\right\}$ como subespacios de $\mathbb{R}$ poseen la topología discreta. Sea $n \in \mathbb{Z}_{+}$, note que $\left(n-\dfrac{1}{2}, n + \dfrac{1}{2}\right) \cap \mathbb{Z}_{+} = \{n\}$, por lo tanto los puntos son abiertos en ${Z}_{+}$, de donde se sigue que $\mathbb{Z}_{+}$ posee la topología discreta. Ahora sea $\dfrac{1}{n} \in A$, note que $\left(\dfrac{1}{n}-\dfrac{1}{2n(n+1)},\dfrac{1}{n}+\dfrac{1}{2n(n+1)}\right)\cap A = \left\{\dfrac{1}{n}\right\}$, con lo cual, razonando de la misma manera que en el caso anterior, $A$ posee la topología discreta, así la función
+\begin{align*}
+    f : \mathbb{Z}_{+}&\longrightarrow A \\
+    n &\longmapsto f(n) = \frac{1}{n}
+\end{align*} 
+Es un homeomorfismo, luego por el punto 5, sus compactificaciones a un punto son homeomorfas. Para mostrar que la compactificación a un punto de $A$ es $A \cup \{0\}$  basta ver que $A^{\prime}=\{0\}$ luego $\overline{A}=\{0\} \cup A$, como $A \cup \{0\} \subset \mathbb{R}$ es cerrado y acotado, es compacto y difiere en un punto de $A$.  
+ \end{proof}

@@ -1,16 +1,14 @@
 \documentclass[12pt]{article}
 \usepackage{float}
 \usepackage{xcolor}
-\usepackage{euler}
+\usepackage{fourier,libertine}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
 \usepackage{amsfonts,amsmath,amssymb,amsthm}
 \usepackage{bbm}
-
 \usepackage{geometry}
 \setlength{\parindent}{0pt}
-
-\input{boxes}
+\input{Configs/boxes}
 \usepackage{multicol}
 \usepackage{blindtext}
 \usepackage{lipsum}
@@ -20,27 +18,27 @@
  left=20mm,
  top=15mm,
  }
- 
 \title{\vspace{-2cm}\par\noindent\rule{16cm}{1pt}\large
 \\\bfseries Título de lo que sea que se vaya a hacer en el trabajo
 \vspace{-0.34cm}\par\noindent\hspace{0.15cm}\rule{16cm}{1pt}
-\vspace{-0.6cm}
+\vspace{-0.2cm}
 }
-\author{\small \bfseries Autor 1$.^1$\quad \quad \quad \quad \quad \quad \quad \quad\quad\small Autor 2$.^{2}$\\ \small \texttt{correo1@....} \quad \quad \quad \quad  \quad \quad \quad \quad \quad \texttt{correo2@...}
+\author{\small \bfseries Logaritmo de pepe sobre pepe$.^1$\small \phantom{lkllkhhhhhhh}Mateo Andrés Manosalva Amaris$.^{2}$\\ \small \texttt{lpepe@unal.edu.co}\hspace{3.6cm}\texttt{mmanosalva@unal.edu.co}
 }
-
 \usepackage{titling}
 \predate{\hspace{6.24cm}\small}
 \postdate{}
-
+%Atajos
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
 \begin{document}
-
 \maketitle
 \begin{abstract}
 \textcolor{red}{La idea de esto es una plantilla tipo paper que sea más soft a lo usual, es sobria pero no en exceso.}\lipsum[1]
 \end{abstract}
-
-
 
 \section{Preliminares}
 
@@ -97,7 +95,7 @@ $$\zeta(s)=\sum_{n=1}^{\infty}\dfrac{1}{n^s}$$
 
 \subsection{La integral de Riemann-Stieltjes}
 
-Como dijimos antes, probaremos el TNP usando una equivalencia que demostraremos en esta sección, primero vamos a definir usando como referencia el libro de Apostol \cite{Apostol:105425} la integral de Riemann Stieltjes
+\lipsum[1] \cite{apostol1998introduction}
 
 \begin{definition}
     \begin{itemize}\item[i)] Sean $P=\{x_0,x_1,...,x_n\}\in\mathcal{P}[a,b]$ (las particiones del intervalo $[a,b]$) y   $t_{k}\in [x_{k-1},x_k]$ cualesquiera. 
@@ -114,16 +112,10 @@ Como dijimos antes, probaremos el TNP usando una equivalencia que demostraremos 
     \lipsum[3]
 \end{prop}
 
-\textcolor{red}{Ahora una cajita toda cacorra para lemas\\
-}
 
 \begin{lemma}
     \lipsum[2]
 \end{lemma}
-
-\begin{tikznt}
-
-Esta cajita es pa poner cosas en tikz y que se vea basado
 
 \begin{center}
     \begin{tikzpicture}[scale=1.2]
@@ -151,11 +143,6 @@ Esta cajita es pa poner cosas en tikz y que se vea basado
 \filldraw[black] (\c,\Vc) circle (.03cm);
 \end{tikzpicture}
 \end{center}
-
-\end{tikznt}
-
-\textcolor{red}{Y YA, SI LES GUSTÓ PUES DEJEN UNA HPTA ESTRELLA MALPARIDOS, ME ESFORCÉ}
-
 
 \newpage
 \bibliographystyle{unsrt}

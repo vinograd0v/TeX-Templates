@@ -1,0 +1,20 @@
+%!TEX root = ../main.tex
+
+\item Sea $\{X_\alpha\}$ una familia indexada de espacios no vacíos.
+    \begin{enumerate}
+        \item Demuestra que si $\prod X_\alpha$ es localmente compacto, entonces cada $X_\alpha$ es localmente compacto y $X_\alpha$ es compacto para todos los valores de $\alpha$, salvo un número finito.
+
+        \begin{proof}
+            Recordemos que las proyecciones son mapeos continuos y abiertos, supongamos que $\prod X_\alpha$ es localmente compacto. Sea $x\in \prod X_\alpha$, por la compacidad local existe un subespacio compacto $C$ de $\prod X_\alpha$ que contiene a $x$ y esta vecindad contiene un elemento de la base de $\prod X_\alpha$ que contiene a $x$, digamos $U$.\\
+
+            Como estamos en la topología producto, entonces $U=\prod_{\alpha}U_{\alpha}$ donde $U_{\alpha}=X_{\alpha}$ para todo $\alpha$ salvo finitos índices, digamos $\alpha_1,\ldots,\alpha_n$. Sea $\beta\neq \alpha_i$ para  todo $i=1,\ldots,n$, entonces $\pi_{\beta}(C)$ es un compacto que contiene a $\pi_{\beta}(U)=X_{\beta}$.\\
+
+            Falta ver que los $X_{\alpha_i}$, $i=1,\ldots,n$ son localmente compactos. Sean $y\in X_{\alpha_i}$ y $x \in \prod X_\alpha$ tales que $x_{\alpha_i}=y$. Existe un compacto $C$ que contiene un elemento de la base $U$ tal que $U$ es vecindad $x$, entonces $\pi_{\alpha_i}(C)$ es un subespacio compacto de $X_{\alpha_i}$ que contiene a la vecindad $\pi_{\alpha_i}(U)$ de $x$.  
+        \end{proof}
+
+        \item Prueba el recíproco, asumiendo el teorema de Tychonoff.
+
+        \begin{proof}
+            Sea $x \in \prod_\alpha X_\alpha$. Para cada $\alpha$, existe un subespacio compacto $C_\alpha$ de $X_\alpha$ que contiene una vecindad $U_\alpha$ de $x_\alpha$. Por hipótesis, para cada índice salvo finitos, podemos asumir que $C_\alpha = U_\alpha = X_\alpha$. Por el teorema de Tychonoff, $\prod_\alpha C_\alpha$ es compacto y contiene la vecindad $\prod_\alpha U_\alpha$ de $x$. Se sigue que $\prod_\alpha X_\alpha$ es localmente compacto.
+        \end{proof}
+    \end{enumerate}

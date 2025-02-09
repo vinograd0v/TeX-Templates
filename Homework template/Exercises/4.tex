@@ -1,0 +1,12 @@
+%!TEX root = ../main.tex
+
+\item Demuestra que $[0,1]^\omega$ no es localmente compacto en la topología uniforme.
+
+\begin{proof}
+    Considere el $0\in \mathbb{R}^{\omega}$, $0=(0,0,0,0,\ldots)$. Suponga que $[0,1]^\omega$ es localmente compacto en $0$, entonces existe un compacto $C$ que contiene la bola $B(0,\epsilon)\subset[0,1]^\omega$, en efecto $\overline{B(0,\epsilon)}=[0,\epsilon]^\omega$. Como $[0,\epsilon]^\omega$ es un subconjunto cerrado de un compacto, entonces es compacto, pero esto es una contradicción ya que dado $U\subset [0,\epsilon)$, tenemos que
+
+    $$\bigcup_{k\geq 1}[0,\epsilon]^{k}\times U^{\omega-k} 
+        $$
+
+    es un cubrimiento abierto de $[0,\epsilon]^{\omega}$ que no admite un subcubrimiento finito.
+\end{proof}

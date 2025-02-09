@@ -1,0 +1,36 @@
+%!TEX root = ../main.tex
+
+\item Demuestra que la compactificación por un punto de $\mathbb{R}$ es homeomorfa al círculo $S^1$.\\
+
+\begin{proof}
+    Vamos a construir el homeomorfismo, este es la proyección estereográfica.
+
+\begin{center}
+    \input{Graphics/Castrology}
+\end{center}
+
+
+Por la ecuación de punto pendiente, la recta que se observa en el dibujo y que corta la circunferencia  tiene la ecuación 
+
+$$y=\frac{-x}{a}+1,$$
+
+reemplazando esto en la ecuación del círculo $(x^2+y^2=1)$obtenemos que 
+
+$$x^2+\frac{x^2}{a^2}-\frac{2x}{a}=0,$$
+
+así pues
+
+$$x\left(1+\frac{1}{a^2}\right)=\frac{2}{a},$$
+
+esto es 
+
+$$x=\frac{2a}{a^2+1}.$$
+
+Finalmente, al reemplazar $x$ en la ecuación de la recta, obtenemos que 
+
+$$y=\frac{-2}{a^2+1}+1$$
+
+que es el heomemorfimo ya que cuando $a\to \infty$ obtenemos el polo norte y la función establece una correspondencia entre un punto en la circunferencia y un punto en la recta (por la construcción que hicimos). Obviamente la función es biyectiva y continua y su inversa es continua xd.
+
+\end{proof}
+

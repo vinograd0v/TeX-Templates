@@ -1,0 +1,8 @@
+%!TEX root = ../main.tex
+
+ \item Demuestra que si $X$ es un espacio de Hausdorff localmente compacto en el punto $x$, entonces para cada vecindad $U$ de $x$, existe una vecindad $V$ de $x$ tal que $\bar{V}$ es compacto y $\bar{V} \subset U$.
+
+ \begin{proof}
+     Sea $U$ una vecindad de $x$, como $X$ es localmente compacto en $x$, existe un compacto $K \subset X$ tal que $x \in W \subset K$, con $W$
+     una vecindad de $x$. Tenemos también que $U \cap W$ es una vecindad de $x$ contenida en $K$, por lo tanto $K - (U \cap W)$ es cerrado en $K$. Como $K$ es compacto y Hausdorff, existen dos abiertos disyuntos $V_1$ y $V_2$ tales que $x \in V_1$ y $K - (U \cap W) \subset V_2$. Considere $V= V_1 \cap U \cap W$, $V$ es una vecindad de $x$ que está contenida en $U$, además $\overline{V} \subset U$, en efecto $K-(U \cap W)= (K-U) \cup (K-W) \subset V_2$ y como $V_2$ es abierto, $V_2^c \subset U$ es un cerrado que contiene a $V$ , por lo tanto $\overline{V} \subset U$. Además, como $\overline{V} \subset K$, es compacto. 
+ \end{proof}

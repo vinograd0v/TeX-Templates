@@ -1,0 +1,11 @@
+%!TEX root = ../main.tex
+
+\item Muestra que los números racionales $\mathbb{Q}$ no son localmente compactos
+\begin{proof}   
+Consideremos $\mathbb{Q}$ como subespacio de $\mathbb{R}$ con la topología usual, el punto $0\in \mathbb{Q}$ y una vecindad $U \subset \mathbb{Q}$ de 0, como $U$ es abierto, por la propiedad arquimediana de los números racionales, existe $n \in \mathbb{N}$ tal que $ \mathbb{Q} \cap \left(-\dfrac{1}{n},\dfrac{1}{n}\right) \subset U$, por la densidad de los irracionales en los reales, existe un irracional $r$ en el intervalo $\left(-\dfrac{1}{n},\dfrac{1}{n}\right)$ y por la propiedad arquimediana, existe un natural $k \in \mathbb{N}$ tal que $\left[r-\dfrac{1}{k},r+\dfrac{1}{k}\right] \subset \left(-\dfrac{1}{n},\dfrac{1}{n}\right)$, note que $\left[r-\dfrac{1}{k},r+\dfrac{1}{k}\right]\cap \mathbb{Q}$ es cerrado en $\mathbb{Q}$, luego, si existiera un compacto que contiene a $U$, $\left[r-\dfrac{1}{k},r+\dfrac{1}{k}\right]\cap \mathbb{Q}$ sería compacto pues es un subconjunto cerrado de un compacto, sin embargo
+\[
+    \bigcap_{n \geq k}^{\infty}\left(\left[r-\frac{1}{n},r+\frac{1}{n}\right]\cap \mathbb{Q}\right) = \emptyset
+\]
+De esta manera, $\left[r-\dfrac{1}{k},r+\dfrac{1}{k}\right]\cap \mathbb{Q}$ no es compacto y por lo tanto $\mathbb{Q}$ no es localmente compacto.
+            
+\end{proof}

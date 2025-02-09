@@ -1,0 +1,16 @@
+%!TEX root = ../main.tex
+
+\item Sea $X$ un espacio localmente compacto. Si $f: X \rightarrow Y$ es continua, ¿se sigue que $f(X)$ es localmente compacto? ¿Qué ocurre si $f$ es continua y abierta? Justifica tu respuesta.
+
+\textbf{Falso:} Sean $\mathbb{Q}_d$ los racionales con la topología discreta y $\mathbb{Q}$ los racionales con la topología usual. $\mathbb{Q}_d$ es localmente compacto ya que $\{x\}$ es una vecindad de $x$ y $\{x\}$ es compacto, sin embargo,
+\begin{align*}
+    f : \mathbb{Q}_d &\longrightarrow \mathbb{Q} \\
+    x &\longmapsto f(x) = x
+\end{align*}
+
+es continua y $\mathbb{Q}$ no es localmente compacto (Ejercicio 1). Sin embargo si añadimos la hipótesis de que $f$ es abierta, entonces es verdadera la proposición.
+
+\begin{proof}
+    Sea $y\in f(X)$, existe $x\in X$ tal que $f(x)=y$, como $X$ es localmente compacto, entonces existe un subespacio compacto $C$ de $X$ tal que $C$ contiene una vecindad $U$ de $x$. Obviamente $f(U)\subset f(C)$ y $f(U)$ es abierto porque $f$ es abierta, además $f(C)$ es compacto, de lo que se sigue el resultado. 
+\end{proof}
+    

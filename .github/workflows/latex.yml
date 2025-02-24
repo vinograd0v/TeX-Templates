@@ -16,11 +16,12 @@ jobs:
 
       - name: Find and compile LaTeX documents
         run: |
-          find . -name "main.tex" | while read texfile; do
-            dir=$(dirname "$texfile")
-            echo "Compiling $texfile in $dir"
-            latexmk -pdf -cd "$texfile"
-          done
+          find . -name "main.tex" > tex_files.txt
+
+      - name: Compile LaTeX documents
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: tex_files.txt
 
       - name: Commit and push generated PDFs
         run: |

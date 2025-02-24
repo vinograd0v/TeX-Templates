@@ -1,0 +1,28 @@
+name: Build LaTeX Document
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+
+      - name: Commit and push generated PDF
+        run: |
+          git config --global user.name "vinograd0v"
+          git config --global user.email "mmanosalva@unal.edu.co"
+          git add -f main.pdf
+          git commit -m "Automated PDF update"
+          git push

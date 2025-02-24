@@ -16,13 +16,13 @@ jobs:
 
       - name: Find LaTeX documents
         run: |
-          find . -name "main.tex" > tex_files.txt
+          TEX_FILES=$(find . -name "main.tex" | tr '\n' ' ')
+          echo "ROOT_FILES=$TEX_FILES" >> $GITHUB_ENV
 
       - name: Compile LaTeX documents
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: |
-            $(cat tex_files.txt)
+          root_file: "${{ env.ROOT_FILES }}"
 
       - name: Commit and push generated PDFs
         run: |

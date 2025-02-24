@@ -1,4 +1,4 @@
-name: Build LaTeX Documents
+name: Compile All LaTeX Documents
 
 on:
   push:
@@ -7,63 +7,36 @@ on:
   pull_request:
 
 jobs:
-  generate-matrix:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Debug: Mostrar resultados de find
-        id: find_files
-        run: |
-          echo "Ejecutando 'find' para buscar main.tex:"
-          find . -type f -name "main.tex"
-      
-      - name: Generar matriz de archivos main.tex
-        id: set-matrix
-        run: |
-          # Buscar únicamente archivos (excluye directorios)
-          files=$(find . -type f -name "main.tex" | sort)
-          echo "Archivos encontrados:"
-          echo "$files"
-          # Construir la matriz en formato JSON:
-          # El resultado tendrá la forma:
-          # {"include": [ {"file": "./Poster-TH/main.tex"}, {"file": "./Homework/main.tex"}, ... ]}
-          matrix=$(echo "$files" | jq -R -s 'split("\n") | map(select(length > 0)) | {include: map({file: .})}')
-          echo "Matriz generada: $matrix"
-          echo "matrix=$matrix" >> $GITHUB_OUTPUT
-
   compile:
-    needs: generate-matrix
     runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+    container:
+      image: ghcr.io/xu-cheng/texlive-full:latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Debug: Mostrar archivo a compilar
-        run: echo "Se compilará: ${{ matrix.file }}"
-
-      - name: Compilar documento LaTeX
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: ${{ matrix.file }}
-
-      - name: Commit y push del PDF generado
+      - name: Find and compile LaTeX files
         run: |
-          # Determinar el directorio donde se encuentra el main.tex y se genera main.pdf
-          FILE_DIR=$(dirname "${{ matrix.file }}")
-          PDF_FILE="$FILE_DIR/main.pdf"
-          echo "Buscando PDF generado en: $PDF_FILE"
-          if [ -f "$PDF_FILE" ]; then
-            git config --global user.name "vinograd0v"
-            git config --global user.email "mmanosalva@unal.edu.co"
-            git add -f "$PDF_FILE"
-            git commit -m "Automated PDF update for ${{ matrix.file }}"
-            git push
+          echo "Buscando archivos main.tex..."
+          # Se usa find con -print0 para manejar nombres con espacios
+          find . -type f -name "main.tex" -print0 | while IFS= read -r -d '' file; do
+              echo "Compilando $file..."
+              # Se determina el directorio del archivo y se compila allí
+              dir=$(dirname "$file")
+              (cd "$dir" && latexmk -pdf -silent -f main.tex)
+          done
+
+      - name: Commit and push generated PDFs
+        run: |
+          git config --global user.name "vinograd0v"
+          git config --global user.email "mmanosalva@unal.edu.co"
+          # Se agregan forzosamente todos los archivos main.pdf
+          find . -type f -name "main.pdf" -print0 | xargs -0 git add -f
+          # Solo se hace commit si hay cambios
+          if ! git diff-index --quiet HEAD --; then
+              git commit -m "Automated PDF update"
+              git push
           else
-            echo "PDF no encontrado: $PDF_FILE"
+              echo "No hay cambios a commitear"
           fi

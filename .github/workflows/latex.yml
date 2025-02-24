@@ -1,4 +1,4 @@
-name: Compile All LaTeX Documents
+name: Compile All LaTeX Document
 
 on:
   push:

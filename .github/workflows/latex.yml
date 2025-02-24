@@ -18,11 +18,11 @@ jobs:
       - name: Find main.tex files and generate matrix
         id: set-matrix
         run: |
-          # Buscar todos los archivos main.tex
-          files=$(find . -name "main.tex")
+          # Buscar todos los archivos main.tex (solo archivos, no directorios)
+          files=$(find . -type f -name "main.tex")
           echo "Found files:"
           echo "$files"
-          # Generar un objeto JSON para la matriz.
+          # Generar matriz en formato JSON
           matrix=$(echo "$files" | jq -R -s -c 'split("\n") | map(select(length > 0)) | {include: map({file: .})}')
           echo "matrix=$matrix" >> $GITHUB_OUTPUT
 
@@ -38,17 +38,21 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          # Cada job recibirá un único archivo main.tex
+          # Se procesa cada archivo main.tex de forma individual
           root_file: ${{ matrix.file }}
 
       - name: Commit and push generated PDF
         run: |
-          # Obtener el directorio donde se encuentra el main.tex (y donde se genera main.pdf)
+          # Determinar el directorio donde se encuentra main.tex (y se genera main.pdf)
           FILE_DIR=$(dirname "${{ matrix.file }}")
-          echo "PDF esperado en: $FILE_DIR/main.pdf"
+          echo "Esperando PDF en: $FILE_DIR/main.pdf"
           git config --global user.name "vinograd0v"
           git config --global user.email "mmanosalva@unal.edu.co"
-          # Agregar el PDF generado, hacer commit y push.
-          git add -f "$FILE_DIR/main.pdf"
-          git commit -m "Automated PDF update for ${{ matrix.file }}"
-          git push
+          # Solo hacemos commit si el PDF existe
+          if [ -f "$FILE_DIR/main.pdf" ]; then
+            git add -f "$FILE_DIR/main.pdf"
+            git commit -m "Automated PDF update for ${{ matrix.file }}"
+            git push
+          else
+            echo "No se encontró el PDF en $FILE_DIR"
+          fi

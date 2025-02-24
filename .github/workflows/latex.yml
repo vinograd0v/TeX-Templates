@@ -15,16 +15,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate matrix of main.tex files
+      - name: Debug: Mostrar resultados de find
+        id: find_files
+        run: |
+          echo "Ejecutando 'find' para buscar main.tex:"
+          find . -type f -name "main.tex"
+      
+      - name: Generar matriz de archivos main.tex
         id: set-matrix
         run: |
-          # Buscar solo archivos (no directorios) llamados main.tex
+          # Buscar únicamente archivos (excluye directorios)
           files=$(find . -type f -name "main.tex" | sort)
-          echo "Found files:"
+          echo "Archivos encontrados:"
           echo "$files"
-          # Generar un objeto JSON compatible con matrix.include
-          json=$(echo "$files" | jq -R -s 'split("\n") | map(select(length > 0)) | {include: map({file: .})}')
-          echo "matrix=$json" >> $GITHUB_OUTPUT
+          # Construir la matriz en formato JSON:
+          # El resultado tendrá la forma:
+          # {"include": [ {"file": "./Poster-TH/main.tex"}, {"file": "./Homework/main.tex"}, ... ]}
+          matrix=$(echo "$files" | jq -R -s 'split("\n") | map(select(length > 0)) | {include: map({file: .})}')
+          echo "Matriz generada: $matrix"
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
 
   compile:
     needs: generate-matrix
@@ -35,23 +44,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX document
+      - name: Debug: Mostrar archivo a compilar
+        run: echo "Se compilará: ${{ matrix.file }}"
+
+      - name: Compilar documento LaTeX
         uses: xu-cheng/latex-action@v3
         with:
-          # Cada job procesa un solo archivo main.tex
           root_file: ${{ matrix.file }}
 
-      - name: Commit and push PDF
+      - name: Commit y push del PDF generado
         run: |
-          # Determinar la carpeta del main.tex (y se espera que ahí se genere main.pdf)
+          # Determinar el directorio donde se encuentra el main.tex y se genera main.pdf
           FILE_DIR=$(dirname "${{ matrix.file }}")
-          echo "Expected PDF in: $FILE_DIR/main.pdf"
-          git config --global user.name "vinograd0v"
-          git config --global user.email "mmanosalva@unal.edu.co"
-          if [ -f "$FILE_DIR/main.pdf" ]; then
-            git add -f "$FILE_DIR/main.pdf"
+          PDF_FILE="$FILE_DIR/main.pdf"
+          echo "Buscando PDF generado en: $PDF_FILE"
+          if [ -f "$PDF_FILE" ]; then
+            git config --global user.name "vinograd0v"
+            git config --global user.email "mmanosalva@unal.edu.co"
+            git add -f "$PDF_FILE"
             git commit -m "Automated PDF update for ${{ matrix.file }}"
             git push
           else
-            echo "PDF not found in $FILE_DIR"
+            echo "PDF no encontrado: $PDF_FILE"
           fi

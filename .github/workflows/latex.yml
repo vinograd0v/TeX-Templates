@@ -1,4 +1,4 @@
-name: Build LaTeX Document
+name: Build LaTeX Documents
 
 on:
   push:
@@ -14,15 +14,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: main.tex
-
-      - name: Commit and push generated PDF
+      - name: Find and compile LaTeX documents
         run: |
-          git config --global user.name "vinograd0v"
-          git config --global user.email "mmanosalva@unal.edu.co"
-          git add -f main.pdf
-          git commit -m "Automated PDF update"
+          find . -name "main.tex" | while read texfile; do
+            dir=$(dirname "$texfile")
+            echo "Compiling $texfile in $dir"
+            (cd "$dir" && latexmk -pdf main.tex)
+          done
+
+      - name: Commit and push generated PDFs
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          find . -name "main.pdf" | while read pdffile; do
+            git add -f "$pdffile"
+          done
+          git commit -m "Automated PDF updates"
           git push

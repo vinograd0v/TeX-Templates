@@ -19,21 +19,19 @@ jobs:
       - name: Find and compile LaTeX files
         run: |
           echo "Buscando archivos main.tex..."
-          # Se usa find con -print0 para manejar nombres con espacios
           find . -type f -name "main.tex" -print0 | while IFS= read -r -d '' file; do
               echo "Compilando $file..."
-              # Se determina el directorio del archivo y se compila allí
               dir=$(dirname "$file")
               (cd "$dir" && latexmk -pdf -silent -f main.tex)
           done
 
       - name: Commit and push generated PDFs
         run: |
+          # Agregar el directorio actual como seguro para Git
+          git config --global --add safe.directory "$(pwd)"
           git config --global user.name "vinograd0v"
           git config --global user.email "mmanosalva@unal.edu.co"
-          # Se agregan forzosamente todos los archivos main.pdf
           find . -type f -name "main.pdf" -print0 | xargs -0 git add -f
-          # Solo se hace commit si hay cambios
           if ! git diff-index --quiet HEAD --; then
               git commit -m "Automated PDF update"
               git push

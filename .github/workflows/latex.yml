@@ -15,10 +15,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Find and compile LaTeX documents
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: |
-            $(find . -name "main.tex" | sed 's|^./||')
+        run: |
+          find . -name "main.tex" | while read texfile; do
+            dir=$(dirname "$texfile")
+            echo "Compiling $texfile in $dir"
+            latexmk -pdf -cd "$texfile"
+          done
 
       - name: Commit and push generated PDFs
         run: |

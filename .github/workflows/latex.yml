@@ -15,21 +15,26 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Find LaTeX documents
+        id: find_tex
         run: |
-          TEX_FILES=$(find . -name "main.tex" | tr '\n' ' ')
-          echo "ROOT_FILES=$TEX_FILES" >> $GITHUB_ENV
+          TEX_FILES=$(find . -name "main.tex" | tr '\n' ',')
+          echo "ROOT_FILES=${TEX_FILES%,}" >> $GITHUB_ENV
 
       - name: Compile LaTeX documents
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: "${{ env.ROOT_FILES }}"
+          root_file: ${{ env.ROOT_FILES }}
 
       - name: Commit and push generated PDFs
         run: |
           git config --global user.name "vinograd0v"
           git config --global user.email "mmanosalva@unal.edu.co"
-          find . -name "main.pdf" | while read pdffile; do
-            git add -f "$pdffile"
-          done
+
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git add -f $(find . -name "main.pdf")
           git commit -m "Automated PDF update"
           git push

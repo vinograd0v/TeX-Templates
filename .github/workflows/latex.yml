@@ -15,16 +15,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Find main.tex files and generate matrix
+      - name: Generate matrix of main.tex files
         id: set-matrix
         run: |
-          # Buscar todos los archivos main.tex (solo archivos, no directorios)
-          files=$(find . -type f -name "main.tex")
+          # Buscar solo archivos (no directorios) llamados main.tex
+          files=$(find . -type f -name "main.tex" | sort)
           echo "Found files:"
           echo "$files"
-          # Generar matriz en formato JSON
-          matrix=$(echo "$files" | jq -R -s -c 'split("\n") | map(select(length > 0)) | {include: map({file: .})}')
-          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+          # Generar un objeto JSON compatible con matrix.include
+          json=$(echo "$files" | jq -R -s 'split("\n") | map(select(length > 0)) | {include: map({file: .})}')
+          echo "matrix=$json" >> $GITHUB_OUTPUT
 
   compile:
     needs: generate-matrix
@@ -38,21 +38,20 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          # Se procesa cada archivo main.tex de forma individual
+          # Cada job procesa un solo archivo main.tex
           root_file: ${{ matrix.file }}
 
-      - name: Commit and push generated PDF
+      - name: Commit and push PDF
         run: |
-          # Determinar el directorio donde se encuentra main.tex (y se genera main.pdf)
+          # Determinar la carpeta del main.tex (y se espera que ahí se genere main.pdf)
           FILE_DIR=$(dirname "${{ matrix.file }}")
-          echo "Esperando PDF en: $FILE_DIR/main.pdf"
+          echo "Expected PDF in: $FILE_DIR/main.pdf"
           git config --global user.name "vinograd0v"
           git config --global user.email "mmanosalva@unal.edu.co"
-          # Solo hacemos commit si el PDF existe
           if [ -f "$FILE_DIR/main.pdf" ]; then
             git add -f "$FILE_DIR/main.pdf"
             git commit -m "Automated PDF update for ${{ matrix.file }}"
             git push
           else
-            echo "No se encontró el PDF en $FILE_DIR"
+            echo "PDF not found in $FILE_DIR"
           fi

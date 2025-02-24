@@ -7,34 +7,48 @@ on:
   pull_request:
 
 jobs:
-  build:
+  generate-matrix:
     runs-on: ubuntu-latest
-
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Find LaTeX documents
-        id: find_tex
+      - name: Find main.tex files and generate matrix
+        id: set-matrix
         run: |
-          TEX_FILES=$(find . -name "main.tex" | tr '\n' ',')
-          echo "ROOT_FILES=${TEX_FILES%,}" >> $GITHUB_ENV
+          # Buscar todos los archivos main.tex
+          files=$(find . -name "main.tex")
+          echo "Found files:"
+          echo "$files"
+          # Generar un objeto JSON para la matriz.
+          matrix=$(echo "$files" | jq -R -s -c 'split("\n") | map(select(length > 0)) | {include: map({file: .})}')
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
 
-      - name: Compile LaTeX documents
+  compile:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: ${{ env.ROOT_FILES }}
+          # Cada job recibirá un único archivo main.tex
+          root_file: ${{ matrix.file }}
 
-      - name: Commit and push generated PDFs
+      - name: Commit and push generated PDF
         run: |
+          # Obtener el directorio donde se encuentra el main.tex (y donde se genera main.pdf)
+          FILE_DIR=$(dirname "${{ matrix.file }}")
+          echo "PDF esperado en: $FILE_DIR/main.pdf"
           git config --global user.name "vinograd0v"
           git config --global user.email "mmanosalva@unal.edu.co"
-
-          if git diff --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
-
-          git add -f $(find . -name "main.pdf")
-          git commit -m "Automated PDF update"
+          # Agregar el PDF generado, hacer commit y push.
+          git add -f "$FILE_DIR/main.pdf"
+          git commit -m "Automated PDF update for ${{ matrix.file }}"
           git push
